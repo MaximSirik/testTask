@@ -1,0 +1,124 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+} ?>
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+
+<div class="row">
+    <?php $count = count($_SESSION['comparison']);
+    if (count($_SESSION['comparison']) > 4) {
+        $count = 4;
+    }?>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td class="success" colspan="5">Описание</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Наименование</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['name']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Изображение</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><img src="<?= $this->getComparisonGoods[$i]['url']?>" width="150px" height="150px"></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Цена за ед</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['cost']?> грн</td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Цена за коробку (8шт)</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['costall']?> грн</td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Модель</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['article']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Наличие</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td>Есть на складе</td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Краткое описание</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['specification']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td class="success" colspan="5">Характеристика обуви</td>
+        </tr>
+        <tr>
+            <td>Цвет</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['color']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Материал</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['material']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Сезон</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['season']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Размеры</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td>40/1, 41/2, 42/2, 43/2, 44/1</td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>В коробке</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['complect']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td>Марка</td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><?= $this->getComparisonGoods[$i]['name']?></td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td></td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td>
+                    <a id="good-<?= $this->getComparisonGoods[$i]['id'] ?>-<?= $this->getComparisonGoods[$i]['costall'] ?>" href="#"
+                       class="addCart">
+                        <button type="button" class="btn btn-success" style="color: #FFFFFF; width: 100px;">Купить</button>
+                    </a>
+                </td>
+            <?php } ?>
+        </tr>
+        <tr>
+            <td></td>
+            <?php for ($i = 0; $i < $count; $i++) { ?>
+                <td><a href="/comparison/clear?pos=<?=$i?>" class="btn btn-success" style="color: #FFFFFF; width: 100px;"
+                       role="button">Удалить</a></td>
+            <?php } ?>
+        </tr>
+        </tbody>
+        </table>
+</div>
+

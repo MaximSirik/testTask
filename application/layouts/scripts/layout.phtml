@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl() . '/css/bootstrap.min.css'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl() . '/css/main.css'); ?>
+    <?php echo $this->headLink()->prependStylesheet($this->baseUrl() . '/css/dashboard.css'); ?>
+    <style>
+        #clearBasket, #checkOut {
+            display: none;
+        }
+        .hPb {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="row" id="header">
+            <div class="col-md-3">
+                <div id="site_title"><h1><a href="/">Online Shoes Store</a></h1></div>
+            </div>
+            <div class="col-md-4">
+                <form method="post" action="/search">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск..." name="search_world">
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <?php echo $this->action('index', 'header'); ?>
+            </div>
+        </div>
+        <!-- END of templatemo_header -->
+    </div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="container">
+        <div class="header">
+
+        </div>
+    </div>
+
+    <div class="navbar-collapse collapse" id="top_menu">
+        <div class="container">
+            <ul class="nav navbar-nav" id="a_menu_top">
+                <li class="active"><a style="color: #555" href="/">Главная</a></li>
+                <li><a href="/products?id=1">Каталог товаров</a></li>
+                <li><a href="/about">О нас</a></li>
+                <li><a href="/faqs">Вопросы и ответы</a></li>
+                <li><a href="/contact">Наши контакты</a></li>
+                <li><a href="/delivery">Условия доставки</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="main">
+        <?php echo $this->layout()->content; ?>
+    </div>
+</div>
+
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4>Информация</h4>
+                <ul>
+                    <li><a href="/about"> О нас</a></li>
+                    <li><a href="/delivery">Условия доставки</a></li>
+                    <li><a href="/payment">Условия оплаты</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h4>Служба поддержки</h4>
+                <ul>
+                    <li><a href="/contact">Связаться с нами</a></li>
+                    <li><a href="/">Карта сайта</a></li>
+                </ul>
+
+            </div>
+            <div class="col-md-3">
+                <h4>Личный кабинет</h4>
+                <ul>
+                    <li><a href="/account">Личный кабинет</a></li>
+                    <li><a href="/">История заказов</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+<script type="text/javascript" src="js/basket.js"></script>
+</body>
+</html>

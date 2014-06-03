@@ -1,0 +1,104 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+}
+if (!empty($_SESSION['comparison'])) {
+    ?>
+    <div class="alert alert-warning fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p>Вы добавили товар в ваш список <strong><a href="/comparison"> сравнения</a>!</strong></p>
+    </div>
+<?php } ?>
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="navbar navbar-default navbar-static-top" role="navigation" id="navbar-category">
+
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-category">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-category">
+                <?php foreach ($this->getNameCategory as $key => $getNameCategory) { ?>
+                    <ul class="nav nav-pills nav-stacked" id="category">
+                        <li class="active">
+                            <a href=""><?= $getNameCategory['name'] ?></a>
+                        </li>
+                    </ul>
+                <?php } ?>
+
+                <div class="content">
+                    <ul class="nav nav-pills nav-stacked">
+                        <?php
+                        foreach ($this->getCategory as $key => $getCategory) {
+                            ?>
+                            <li><a href="products?id=<?= $getCategory['id'] ?>"><?= $getCategory['name']; ?></a></li>
+                        <?php } ?>
+                    </ul>
+                </div>
+                <?php if (isset($this->getNameParentCategory)) {
+                foreach ($this->getNameParentCategory as $key => $getNameParentCategory) {
+                ?>
+                <ul class="nav nav-pills nav-stacked" id="category">
+                    <li class="active">
+                        <a href="products?id=<?= $getNameParentCategory['id'] ?>"><?= $getNameParentCategory['name']; ?></a>
+                    </li>
+                </ul>
+                <p>
+                    <?php
+                    }
+                    } ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+
+        <div class="row">
+            <?php foreach ($this->getAllGoods as $key => $getAllGoods) { ?>
+                <a href="/detail?id=<?= $getAllGoods['id']; ?>">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="<?= $getAllGoods['url']; ?>"
+                                 style="width: 208px; height: 208px;">
+
+                            <div class="caption">
+                                <h3><?= $getAllGoods['name']; ?></h3>
+                                <h5>Артикул: <?= $getAllGoods['article']; ?></h5>
+
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <span class="btn btn-danger" style="width: 100%"><?= $getAllGoods['cost']; ?>
+                                            грн</span>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a id="good-<?= $getAllGoods['id'] ?>-<?= $getAllGoods['costall'] ?>" href="#"
+                                           class="addCart">
+                                            <button type="button" class="btn btn-success" style="width: 100%">Купить</button>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p>Цена коробки: <?= $getAllGoods['costall']; ?> грн. (<?= $getAllGoods['complect']; ?>
+                                    пар)</p>
+
+                                <p><a href="/products/comparison?id=<?= $getAllGoods['id']; ?>" class="btn btn-default"
+                                      style="width: 100%"
+                                      role="button">Добавить к сравнению</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+<?php foreach ($this->getAboutCategory as $key => $getAboutCategory) { ?>
+    <p align="justify"> <?= $getAboutCategory['about'] ?></p>
+<?php } ?>
+

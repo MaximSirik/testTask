@@ -1,0 +1,145 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+}
+?>
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+<?php if (!empty($_SESSION['comparison'])) {?>
+    <div class="alert alert-warning fade in">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p>Вы добавили товар в ваш список <strong><a href="/comparison"> сравнения</a>!</strong></p>
+    </div>
+<?php } ?>
+<div class="row">
+    <div class="col-md-9">
+        <div class="col-md-6">
+            <a class="thumbnail">
+                <img src="<?= $this->getGoodsId['url']; ?>" alt="...">
+            </a>
+        </div>
+        <div class="col-md-6">
+            <h1><?= $this->getGoodsId['name']?> <span
+                    style="font-size: 16px;">Артикул: <?= $this->getGoodsId['article'] ?></span></h1>
+
+            <div class="line">
+            </div>
+            <br>
+
+            <p style="font-size: 22px"><?= $this->getGoodsId['cost'] ?> грн.</p>
+
+            <p>
+                Цена за коробку: <?= $this->getGoodsId['costall']; ?> грн.
+            </p>
+
+            <div class="line"></div>
+            <span>Размеры в коробке:</span>
+            <ul class="pagination">
+                <li><a href="">35</a></li>
+                <li><a href="">36</a></li>
+                <li><a href="">37</a></li>
+                <li><a href="">38</a></li>
+                <li><a href="">39</a></li>
+                <li><a href="">40</a></li>
+                <li><a href="">41</a></li>
+                <li><a href="">42</a></li>
+            </ul>
+            <div class="line"></div>
+            <div class="row">
+                <br>
+
+                <div class="col-xs-6">
+                    Количество коробок
+                </div>
+                <div class="col-xs-6">
+                    <input id="count" type="number" value="1" name="col">
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <a id="good-<?=$this->getGoodsId['id']?>-<?= $this->getGoodsId['costall']?>" href="#" class="addCart">
+                        <button type="button" class="btn btn-success" style="width: 100%">Купить</button>
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="/products/comparison?id=<?=$this->getGoodsId['id']?>" class="btn btn-success" style="color: #FFFFFF; width: 100%" role="button">Добавить к сравнению</a>
+                </div>
+            </div>
+            <br>
+
+            <div class="line"></div>
+            <br>
+            <?= $this->getGoodsId['specification']; ?>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr class="success">
+                <td colspan="2">Характеристика обуви</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Цвет</td>
+                <td><?= $this->getGoodsId['color']; ?></td>
+            </tr>
+            <tr>
+                <td>Материал</td>
+                <td><?= $this->getGoodsId['material']; ?></td>
+            </tr>
+            <tr>
+                <td>Сезон</td>
+                <td><?= $this->getGoodsId['season']; ?></td>
+            </tr>
+            <tr>
+                <td>Размеры</td>
+                <td>35/1, 36/1, 37/2, 38/2, 39/1, 40/1</td>
+            </tr>
+            <tr>
+                <td>В коробке</td>
+                <td><?= $this->getGoodsId['complect']; ?></td>
+            </tr>
+            <tr>
+                <td>Марка</td>
+                <td><?= $this->getGoodsId['name']; ?></td>
+            </tr>
+            <tr>
+                <td>Цена за единицу</td>
+                <td><?= $this->getGoodsId['cost']; ?></td>
+            </tr>
+            </tbody>
+        </table>
+        <?php
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if (!empty($_SESSION['user']['id'])) {
+            ?>
+            <h3>Добавить отзыв</h3>
+            <form action="/products/coments" method="post">
+                <div class="form-group">
+                    <p><textarea name="text_review" placeholder="Введите текст комментария"
+                                 class="form-control" rows="5" required></textarea></p>
+                </div>
+                <p>
+                    <button type="submit" class="btn btn-success">Добавить отзыв</button>
+                </p>
+            </form>
+        <? } else { ?>
+            <h3>Оставлять отзывы могут только зарегистрированные пользователи</h3>
+        <? } ?>
+    </div>
+    <div class="col-md-3">
+        <h1>Отзывы</h1>
+        <?php foreach ($this->getComments as $key => $getComments) { ?>
+            <p class="bg-info" style="border-radius: 3px; padding: 5px;">
+                <?= $getComments['first_name'] ?>
+                <br>
+                <?= $getComments['comments'] ?>
+            </p>
+        <?php } ?>
+    </div>
+</div>

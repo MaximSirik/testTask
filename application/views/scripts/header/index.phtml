@@ -1,0 +1,50 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+}?>
+<div class="row">
+    <div class="col-md-7">
+        <div id="basket" >
+            <table>
+                <tbody>
+                <tr class="hPb">
+                    <td>Выбрано:</td>
+                    <td><span id="totalGoods">0</span> товаров</td>
+                </tr>
+                <tr class="hPb">
+                    <td>Сумма:</td>
+                    <td><span id="totalPrice">0</span> руб.</td>
+                </tr>
+                <tr class="hPe">
+                    <td colspan="2">Ваша корзина пустая</td>
+                </tr>
+                <tr>
+                    <td><a id="clearBasket" href="#">  Очистить корзину</a></td>
+                    <td><a id="checkOut" href="/basket">  Оформить заказ</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <?php
+        if ((isset($_SESSION['user']['level'])) && ($_SESSION['user']['level'] == 1)) {
+            ?>
+            <a href="/adminpanel">Панель управления</a>
+        <?php } ?>
+        <?php if (!empty($_SESSION['user']['id'])) { ?>
+            Здравствуйте
+            <?= $_SESSION['user']['first_name']; ?>
+            <a href="/login/logout">Выйти</a>
+        <?php } else { ?>
+            <a href="/login">Войти</a> |
+            <a href="/registration">Регистрация</a>
+        <?php } ?>
+
+    </div>
+</div>
+
+
+
+
+
+

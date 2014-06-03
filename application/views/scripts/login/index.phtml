@@ -1,0 +1,104 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+} ?>
+<ol class="breadcrumb">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Library</a></li>
+    <li class="active">Data</li>
+</ol>
+
+<?php if (isset($_SESSION['message'])) { ?>
+<div class="alert alert-warning alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <?=$_SESSION['message']?>
+</div>
+<?php } ?>
+
+<div class="row">
+    <div class="col-md-8">
+        <h3> Авторизация</h3>
+        <p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Новый клиент</h4>
+                <p>
+                    Создав учетную запись Вы сможетете быстрее оформлять заказы, отслеживать их статус и просматривать
+                    историю покупок.
+                    <p>
+                    <a href="registration"><button type="button" class="btn btn-success">Продолжить</button></a>
+            </div>
+            <div class="col-md-6">
+                <h4>Зарегистрированный клиент</h4>
+                <p>
+                    Войти в Личный Кабинет
+                <form class="form-horizontal" role="form" method="post" action="login/authorization">
+                    <div class="form-group">
+                        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" name="email" id="inputEmail3" placeholder="Email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-2 control-label">Пароль</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" name="password" id="inputPassword3" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success">Войти</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"><h3>Личный кабинет</h3></div>
+</div>
+<div class="line"></div>
+<div style="text-align: justify">
+    <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+        deleniti atque
+        corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
+        sunt in
+        culpa
+        qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est
+        et
+        expedita
+        distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+        quod
+        maxime
+        placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
+        quibusdam et
+        aut
+        officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
+        non
+        recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores
+        alias
+        consequatur aut perferendis doloribus asperiores repellat."
+        1914 translation by H. Rackham</p>
+
+    <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and
+        demoralized by
+        the
+        charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble
+        that are
+        bound
+        to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the
+        same as
+        saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish.
+        In a free
+        hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we
+        like best,
+        every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the
+        claims of
+        duty or the obligations of business it will frequently occur that pleasures have to be repudiated and
+        annoyances
+        accepted. The wise man therefore always holds in these matters to this principle of selection: he
+        rejects
+        pleasures
+        to secure other greater pleasures, or else he endures pains to avoid worse pains."</p>
+</div>
+

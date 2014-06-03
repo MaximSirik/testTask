@@ -1,0 +1,393 @@
+<?php if (!isset($_SESSION)) {
+    session_start();
+    if ($_SESSION['user']['level'] != 1) {
+        header("Location: /");
+    } else {
+        ?>
+        <ol class="breadcrumb">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Library</a></li>
+            <li class="active">Data</li>
+        </ol>
+
+        <ul id="myTab" class="nav nav-tabs">
+            <li class="active"><a href="#profile1" data-toggle="tab">Управление заказами</a></li>
+            <li class=""><a href="#profile2" data-toggle="tab">Пользователи</a></li>
+            <li class=""><a href="#profile3" data-toggle="tab">Товары</a></li>
+            <li class=""><a href="#profile4" data-toggle="tab">Категорий</a></li>
+            <li class=""><a href="#profile5" data-toggle="tab">Цвет</a></li>
+            <li class=""><a href="#profile6" data-toggle="tab">Фирма</a></li>
+            <li class=""><a href="#profile7" data-toggle="tab">Материал</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="profile1">
+            <h2>Управление заказами</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Email</th>
+                    <th>Телефон</th>
+                    <th>Новый заказ</th>
+                    <th>Отменен</th>
+                    <th>Заказ удален</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->getOrders as $key => $getOrders) { ?>
+                    <tr class="links" onclick="window.location.href='/adminpanel/order?id=<?= $getOrders['key_orders']?>'; return false">
+                        <td><?= $key + 1 ?>  </td>
+                        <td><?= $getOrders['first_name'] ?></td>
+                        <td><?= $getOrders['last_name'] ?></td>
+                        <td><?= $getOrders['email'] ?></td>
+                        <td><?= $getOrders['telephone'] ?></td>
+                        <td>
+                            <?php if ($getOrders['new_orders'] == 0) {?>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            <?php } else { ?>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            <?php }?>
+                        </td>
+                        <td>
+                            <?php if ($getOrders['cancel'] == 1) {?>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            <?php } else { ?>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            <?php }?>
+                        </td>
+                        <td>
+                            <?php if ($getOrders['delete'] == 0) {?>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            <?php } else { ?>
+                                <span class="glyphicon glyphicon-ok"></span>
+                            <?php }?>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="profile2">
+            <h2>Пользователи</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Email</th>
+                    <th>Уровень доступа</th>
+                    <th>Телефон</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->getAllUsers as $key => $getAllUser) { ?>
+                    <tr>
+                        <td><?= $key + 1 ?></td>
+                        <td><?= $getAllUser['first_name'] ?></td>
+                        <td><?= $getAllUser['last_name'] ?></td>
+                        <td><?= $getAllUser['email'] ?></td>
+                        <td><?= $getAllUser['level'] ?></td>
+                        <td><?= $getAllUser['telephone'] ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="tab-pane fade" id="profile3">
+            <h2>Добавление товаров</h2>
+
+            <form class="form-horizontal" role="form" method="post" action="adminpanel/addgoods">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Выберите фирму товара</label>
+
+                    <div class="col-sm-8">
+                        <select class="form-control" name="name">
+                            <?php
+                            foreach ($this->getTrademark as $key => $getTrademark) {
+                                ?>
+                                <option
+                                    value="<?= $getTrademark['name'] ?>"><?= $getTrademark['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Выберите категорию товара</label>
+
+                    <div class="col-sm-8">
+                        <select class="form-control" name="type">
+                            <?php
+                            foreach ($this->getAllCategory as $key => $getAllCategory) {
+                                ?>
+                                <option
+                                    value="<?= $getAllCategory['id'] ?>"><?= $getAllCategory['name']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Цена за ед товара</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="cost" required class="form-control" id="inputEmail3"
+                               placeholder="Цена за ед товара">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Цена за коробку</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="costall" required class="form-control" id="inputEmail3"
+                               placeholder="Цена за коробку">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Ссылка на изображение</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="url" required required class="form-control" id="inputEmail3"
+                               placeholder="Ссылка на изображение">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Выберите цвет</label>
+
+                    <div class="col-sm-8">
+                        <select name="color" class="form-control">
+                            <?php
+                            foreach ($this->getColor as $key => $getColor) {
+                                ?>
+                                <option value="<?= $getColor['name'] ?>"><?= $getColor['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Выберите материал</label>
+
+                    <div class="col-sm-8">
+                        <select name="material" class="form-control">
+                            <?php
+                            foreach ($this->getMaterial as $key => $getMaterial) {
+                                ?>
+                                <option value="<?= $getMaterial['name'] ?>"><?= $getMaterial['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Выберите сезон</label>
+
+                    <div class="col-sm-8">
+                        <select name="season" class="form-control">
+                            <?php
+                            foreach ($this->getSeason as $key => $getSeason) {
+                                ?>
+                                <option value="<?= $getSeason['name'] ?>"><?= $getSeason['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Введите артикл</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="article" required class="form-control" id="inputEmail3" required
+                               placeholder="Введите артикл">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Количество шт в коробке</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="complect" required class="form-control" id="inputEmail3" required
+                               placeholder="Количество шт в коробке">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Описание товара</label>
+
+                    <div class="col-sm-8">
+                        <textarea class="form-control" rows="3" name="specification" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-success">Добавить товар</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="profile4">
+            <h2>Добавление категорий</h2>
+
+            <form class="form-horizontal" role="form" method="post" action="adminpanel/addcategory">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Введите название категории</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="name" required class="form-control" id="inputEmail3"
+                               placeholder="Введите название категории">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Выберите родительскую категорию</label>
+
+                    <div class="col-sm-8">
+                        <select class="form-control" name="parent_id">
+                            <option value="0">Родительская категория</option>
+                            <?php
+                            foreach ($this->getAllCategory as $key => $getCategory) {
+                                ?>
+                                <option value="<?= $getCategory['id'] ?>"><?= $getCategory['name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword3" class="col-sm-4 control-label">Описание категории</label>
+
+                    <div class="col-sm-8">
+                        <textarea class="form-control" rows="3" name="about"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-success">Добавить категорию</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade " id="profile5">
+            <h2>Добавление цвета</h2>
+
+            <form class="form-horizontal" role="form" method="post" action="adminpanel/addcolor">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Введите название цвета</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="name_color" required class="form-control" id="inputEmail3"
+                               placeholder="Введите название цвета">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-success">Добавить цвет</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade " id="profile6">
+            <h2>Добавление названия фирмы</h2>
+
+            <form class="form-horizontal" role="form" method="post" action="adminpanel/addtrademark">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Введите название фирмы</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="name_trademark" required class="form-control" id="inputEmail3"
+                               placeholder="Введите название фирмы">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-success">Добавить название фирмы</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="profile7">
+            <h2>Добавление материала</h2>
+
+            <form class="form-horizontal" role="form" method="post" action="adminpanel/addmaterial">
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-4 control-label">Введите название материала</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" name="name_material" required class="form-control" id="inputEmail3"
+                               placeholder="Введите название материала">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8">
+                        <button type="submit" class="btn btn-success">Добавить материал</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="line"></div>
+        <div style="text-align: justify">
+            <p>"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                deleniti atque
+                corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
+                sunt in
+                culpa
+                qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est
+                et
+                expedita
+                distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id
+                quod
+                maxime
+                placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
+                quibusdam et
+                aut
+                officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae
+                non
+                recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores
+                alias
+                consequatur aut perferendis doloribus asperiores repellat."
+                1914 translation by H. Rackham</p>
+
+            <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and
+                demoralized by
+                the
+                charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble
+                that are
+                bound
+                to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the
+                same as
+                saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish.
+                In a free
+                hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we
+                like best,
+                every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the
+                claims of
+                duty or the obligations of business it will frequently occur that pleasures have to be repudiated and
+                annoyances
+                accepted. The wise man therefore always holds in these matters to this principle of selection: he
+                rejects
+                pleasures
+                to secure other greater pleasures, or else he endures pains to avoid worse pains."</p>
+
+            <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and
+                demoralized by
+                the
+                charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble
+                that are
+                bound
+                to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the
+                same as
+                saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish.
+                In a free
+                hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we
+                like best,
+                every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the
+                claims of
+                duty or the obligations of business it will frequently occur that pleasures have to be repudiated and
+                annoyances
+                accepted. The wise man therefore always holds in these matters to this principle of selection: he
+                rejects
+                pleasures
+                to secure other greater pleasures, or else he endures pains to avoid worse pains."</p>
+        </div>
+
+    <?php
+    }
+}; ?>

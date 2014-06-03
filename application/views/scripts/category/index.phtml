@@ -1,0 +1,22 @@
+<?php foreach ($this->getNameCategory as $key => $getNameCategory) { ?>
+    <h3> <?= $getNameCategory['name'] ?></h3>
+<?php } ?>
+    <div class="content">
+        <ul class="sidebar_list">
+            <?php
+            foreach ($this->getCategory as $key => $getCategory) {
+                ?>
+                <li><a href="products?id=<?= $getCategory['id'] ?>"><?= $getCategory['name']; ?></a></li>
+            <?php } ?>
+        </ul>
+    </div>
+<?php if (isset($this->getNameParentCategory)) {
+    foreach ($this->getNameParentCategory as $key => $getNameParentCategory) {
+        ?>
+        <h3>
+            <div class="category">
+                <a href="products?id=<?= $getNameParentCategory['id'] ?>"><?= $getNameParentCategory['name']; ?></a>
+            </div>
+        </h3>
+    <?php }
+} ?>
